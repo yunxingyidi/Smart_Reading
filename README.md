@@ -1,3 +1,7 @@
-# Smart_Reading
-# 由合肥工业大学宣城校区 完成
-# 2022.5.23
+# Smart_Reading 
+# Project Introduction
+======================
+## Project Participants: 
+## tairan zhang, yifei li, yongchen qu, zhihao luo from hfut
+## start at 2022.5.23
+
