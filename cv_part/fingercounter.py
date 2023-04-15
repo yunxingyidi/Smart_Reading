@@ -3,8 +3,11 @@ import HandTrackingModule1 as htm
 import scan as sc
 import volume as vo
 import sound as so
+import strBuffer
 import threading
 import time
+import compile_part.numChange as num
+import serial as se
 
 class Fingercounter(threading.Thread):
     def __init__(self, cap):
@@ -22,7 +25,10 @@ class Fingercounter(threading.Thread):
     def run(self):
         scan = sc.Scan(self.cap)
         volume = vo.Volume(self.cap)
+        buffer = strBuffer.strBuffer()
+        numchange = num.numChange()
         sound = so.Sound()
+        data = se.Data()
         pTime = 0
         delay = 0
         scan_flag = False
@@ -34,8 +40,6 @@ class Fingercounter(threading.Thread):
             img = self.detector.findHands(img)
             lmList = self.detector.findPosition(img, draw=False)
 
-
-            # print(lmList)
             if scan_flag:
                 delay += 1
                 if delay <= 50:
@@ -43,11 +47,13 @@ class Fingercounter(threading.Thread):
                 else:
                     read_text, sign = scan.handle()
                     if sign:
+                        buffer.add_string(read_text)
                         print(read_text)
                     else:
-                        sound.read(read_text)
-                        sound.change_state(True)
-                        sound.start()
+                        print("Can't find book!!!!!")
+                        # sound.read(read_text)
+                        # sound.change_state(True)
+                        # sound.start()
                     self.count = 0
                     delay = 0
                     scan_flag = False
@@ -90,6 +96,9 @@ class Fingercounter(threading.Thread):
                         volume.handle()
                         self.count = 0
                     elif totalFingers == 4:
+                        numchange.add(buffer)
+                        numlist = numchange.a2num()
+                        data.choose(numlist)
                         self.count = 0
                     else:
                         self.count = 0
