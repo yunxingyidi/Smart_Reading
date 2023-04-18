@@ -9,13 +9,13 @@ We have also designed a device for text output of tactile information for blind 
 
 Our system can be divided into image module, audio module, gesture recognition module and hardware module .
 
-![](https://github.com/yunxingyidi/Smart_Reading/image/图片1.png)
+![](https://github.com/yunxingyidi/Smart_Reading/image/image1.png)
 
 ## Image module:image
 
 The design of the image module is based on OpenCV to correct images and extract documents, and then improve the clarity processing, and use tessactocr for text recognition.
 
-![](https://github.com/yunxingyidi/Smart_Reading/image/图片2.png)
+![](https://github.com/yunxingyidi/Smart_Reading/image/image2.png)
 
 ## Gesture module:
 
@@ -25,9 +25,9 @@ The gesture recognition module uses the mediapipe framework provided by Google t
 
 The hardware module first designed a compilation system based on second-level Braille Braille to implement a finite automaton to convert letters or combinations of letters into corresponding Braille points.The electromagnet movement is then controlled by a binary sequence.
 
-![](https://github.com/yunxingyidi/Smart_Reading/image/图片3.png)
+![](https://github.com/yunxingyidi/Smart_Reading/image/image3.png)
 
-![](https://github.com/yunxingyidi/Smart_Reading/image/图片4.png)
+![](https://github.com/yunxingyidi/Smart_Reading/image/image4.png)
 
 ## Audio module:
 
