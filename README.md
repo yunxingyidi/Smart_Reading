@@ -13,9 +13,9 @@ Our system can be divided into image module, audio module, gesture recognition m
 
 ## Image module:
 
-The design of the image module is based on OpenCV to correct images and extract documents, and then improve the clarity processing, and use tessactocr for text recognition.
+The design of the image module is based on OpenCV to correct images and extract documents, and then improve the clarity processing, and use tessactocr for text recognition.image
 
-![](D:\college\大创\图片2.png)
+![image](D:\college\大创\图片2.png)
 
 ## Gesture module:
 
