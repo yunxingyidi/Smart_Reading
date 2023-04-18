@@ -2,15 +2,12 @@ import cv2
 import numpy as np
 import utlis
 import ocr
-import globalvar as gl
 
 class Scan:
     def __init__(self, cap):
         self.cap = cap
 
     def handle(self):
-        print("In the scan")
-        gl._init()
         heightImg = 500
         widthImg = 300
         success, img = self.cap.read()
@@ -22,10 +19,9 @@ class Scan:
         imgDial = cv2.dilate(imgThreshold, kernel, iterations=2)  # APPLY DILATION
         imgThreshold = cv2.erode(imgDial, kernel, iterations=1)  # APPLY EROSION
 
-        #返回边界轮廓的所有点的集合，是一个num，x，y的三维数组
+        # 返回边界轮廓的所有点的集合，是一个num，x，y的三维数组
         contours, hierarchy = cv2.findContours(imgThreshold, cv2.RETR_EXTERNAL,
                                                cv2.CHAIN_APPROX_SIMPLE)  # FIND ALL CONTOURS
-
         # FIND THE BIGGEST COUNTOUR
         biggest = utlis.biggestContour(contours)  # FIND THE BIGGEST CONTOUR
         if len(biggest) != 0:
@@ -44,11 +40,4 @@ class Scan:
             return read_text, True
         else:
             return "Can't find the picture", False
-        # heightImg = 500
-        # widthImg = 300
-        # success, img = self.cap.read()
-        # img = cv2.resize(img, (widthImg, heightImg))
-        #
-        # read_text = ocr.OCR_demo(img)
-        # return read_text, True
 

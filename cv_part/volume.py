@@ -1,8 +1,6 @@
-import cv2
-import numpy as np
-import HandTrackingModule2 as htm
-import globalvar as gl
 
+import numpy as np
+import handtrackmodel as htm
 
 class Volume:
     def __init__(self, cap):
@@ -10,12 +8,7 @@ class Volume:
 
     def handle(self):
         detector = htm.handDetector(detectionCon=0.8, maxHands=1)
-        # devices = AudioUtilities.GetSpeakers()
-        # interface = devices.Activate(IAudioEndpointVolume._iid_, 7, None)
-        #volume = cast(interface, POINTER(IAudioEndpointVolume))
-        area = 0
         i = 0
-        print("In the volume")
         while i < 100:
             success, img = self.cap.read()
             # Find Hand
@@ -35,16 +28,5 @@ class Volume:
                     # Reduce Resolution to make it smoother
                     smoothness = 10
                     volPer = smoothness * round(volPer / smoothness)
-                    # Check fingers up
-                    fingers = detector.fingersUp()
-                    # If pinky is down set volume
-                    # if not fingers[4]:
-                    #     volume.SetMasterVolumeLevelScalar(volPer / 100, None)
-                    #     cv2.circle(img, (lineInfo[4], lineInfo[5]), 15, (0, 255, 0), cv2.FILLED)
-
-            # cVol = int(volume.GetMasterVolumeLevelScalar() * 100)
-            ###############
-            #使用更改音量函数#
-            ###############
             print(volPer)
             i += 1

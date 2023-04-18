@@ -3,7 +3,7 @@
 // zhangtairan
 // 2023.1.7
 
-//开头为a的单词判断,对应索引可能为1（a）,26（as）,27(and)
+//开头为a的单词判断,对应索引可能为1（a）,27（as）,28(and)
 //返回索引值
 int afunc(char *str, int &i)
 {
@@ -19,7 +19,7 @@ int afunc(char *str, int &i)
         {
             if(str[i + 3] == ' ')
             {
-                bitstream = 27;
+                bitstream = 28;
                 i += 2;
                 return bitstream;
             }
@@ -29,7 +29,7 @@ int afunc(char *str, int &i)
     }
     else if(str[i + 1] == 's' && str[i - 1] == ' ')
     {
-        bitstream = 26;
+        bitstream = 27;
         i += 1;
         return bitstream;
     }
@@ -70,7 +70,7 @@ int bfunc(char *str, int &i)
         return bitstream;
     }
 }
-//开头为c的单词判断,对应索引可能为3（c，can）,27（ch）
+//开头为c的单词判断,对应索引可能为3（c，can）,29（ch）
 //返回索引值
 int cfunc(char *str, int &i)
 {

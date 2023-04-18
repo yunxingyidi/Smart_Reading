@@ -1,104 +1,97 @@
-import serial
-import compile_part.mytext
+# 数据输出模块：目标将转换后的字符索引转化为二进制序列进行输出
+# author：zhang winson
+# time：2023.1.12
+
 import RPi.GPIO as GPIO
 import time
-import strBuffer
 
-class Data:
+class IOdata:
     def __init__(self, numlist):
-        # self.ser = serial.Serial(port="/dev/ttyAMA1", baudrate=115200
-        # ,timeout=1E-7, parity=serial.PARITY_EVEN, stopbits=1
-        # ,bytesize=8)
-        self.numbuffer = []
-
-    def sent_byte(self):
+        self.binbuffer = []
+    # 配置树莓派引脚
+    def sent_bit(self):
         GPIO.setmode(GPIO.BOARD)
         Pinlist = [7, 11, 13, 15, 12, 16]
         GPIO.setup(Pinlist, GPIO.OUT)
-
-        GPIO.output(7, self.numbuffer[0])
-        GPIO.output(11, self.numbuffer[1])
-        GPIO.output(13, self.numbuffer[2])
-        GPIO.output(15, self.numbuffer[3])
-        GPIO.output(12, self.numbuffer[4])
-        GPIO.output(16, self.numbuffer[5])
+        for i in range(len(Pinlist)):
+            GPIO.output(Pinlist[i], self.binbuffer[i])
         time.sleep(3)
-
-    def choose(self, numlist):
-        for i in range(len(numlist)):
-            if(self.numlist[i] == 1):
-                self.numbuffer = [0, 0, 0, 0, 0, 1]
-                self.sent_byte()
-            elif(self.numlist[i] == 2):
-                self.numbuffer = [0, 0, 0, 0, 1, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 3):
-                self.numbuffer = [0, 0, 0, 1, 0, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 4):
-                self.numbuffer = [0, 0, 0, 1, 0, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 5):
-                self.numbuffer = [0, 0, 0, 1, 1, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 6):
-                self.numbuffer = [0, 0, 0, 1, 1, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 7):
-                self.numbuffer = [0, 0, 1, 0, 0, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 8):
-                self.numbuffer = [0, 0, 1, 0, 0, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 9):
-                self.numbuffer = [0, 0, 1, 0, 1, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 10):
-                self.numbuffer = [0, 0, 1, 0, 1, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 11):
-                self.numbuffer = [0, 0, 1, 1, 0, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 12):
-                self.numbuffer = [0, 0, 1, 1, 0, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 13):
-                self.numbuffer = [0, 0, 1, 1, 1, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 14):
-                self.numbuffer = [0, 0, 1, 1, 1, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 15):
-                self.numbuffer = [0, 1, 0, 0, 0, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 16):
-                self.numbuffer = [0, 1, 0, 0, 0, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 17):
-                self.numbuffer = [0, 1, 0, 0, 1, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 18):
-                self.numbuffer = [0, 1, 0, 0, 1, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 19):
-                self.numbuffer = [0, 1, 0, 1, 0, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 20):
-                self.numbuffer = [0, 1, 0, 1, 0, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 21):
-                self.numbuffer = [0, 1, 0, 1, 1, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 22):
-                self.numbuffer = [0, 1, 0, 1, 1, 1]
-                self.sent_byte()
-            elif (self.numlist[i] == 23):
-                self.numbuffer = [0, 1, 1, 0, 0, 0]
-                self.sent_byte()
-            elif (self.numlist[i] == 24):
-                self.numbuffer = [0, 1, 1, 0, 0, 1]
-                self.sent_byte()
+    # 转换为二进制序列
+    def index2bin(self, indexlist):
+        for i in range(len(indexlist)):
+            if(indexlist[i] == 1):
+                self.binbuffer = [0, 0, 0, 0, 0, 1]
+                self.sent_bit()
+            elif(indexlist[i] == 2):
+                self.binbuffer = [0, 0, 0, 0, 1, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 3):
+                self.binbuffer = [0, 0, 0, 1, 0, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 4):
+                self.binbuffer = [0, 0, 0, 1, 0, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 5):
+                self.binbuffer = [0, 0, 0, 1, 1, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 6):
+                self.binbuffer = [0, 0, 0, 1, 1, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 7):
+                self.binbuffer = [0, 0, 1, 0, 0, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 8):
+                self.binbuffer = [0, 0, 1, 0, 0, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 9):
+                self.binbuffer = [0, 0, 1, 0, 1, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 10):
+                self.binbuffer = [0, 0, 1, 0, 1, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 11):
+                self.binbuffer = [0, 0, 1, 1, 0, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 12):
+                self.binbuffer = [0, 0, 1, 1, 0, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 13):
+                self.binbuffer = [0, 0, 1, 1, 1, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 14):
+                self.binbuffer = [0, 0, 1, 1, 1, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 15):
+                self.binbuffer = [0, 1, 0, 0, 0, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 16):
+                self.binbuffer = [0, 1, 0, 0, 0, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 17):
+                self.binbuffer = [0, 1, 0, 0, 1, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 18):
+                self.binbuffer = [0, 1, 0, 0, 1, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 19):
+                self.binbuffer = [0, 1, 0, 1, 0, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 20):
+                self.binbuffer = [0, 1, 0, 1, 0, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 21):
+                self.binbuffer = [0, 1, 0, 1, 1, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 22):
+                self.binbuffer = [0, 1, 0, 1, 1, 1]
+                self.sent_bit()
+            elif (indexlist[i] == 23):
+                self.binbuffer = [0, 1, 1, 0, 0, 0]
+                self.sent_bit()
+            elif (indexlist[i] == 24):
+                self.binbuffer = [0, 1, 1, 0, 0, 1]
+                self.sent_bit()
             else:
-                self.numbuffer = [0, 1, 1, 0, 1, 0]
-                self.sent_byte()
+                self.binbuffer = [0, 1, 1, 0, 1, 0]
+                self.sent_bit()
 
